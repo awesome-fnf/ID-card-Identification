@@ -1,0 +1,35 @@
+# Input (see https://help.aliyun.com/document_detail/151899.html ):
+# {
+#   "imageURL": "https://viapi-demo.oss-cn-shanghai.aliyuncs.com/viapi-demo/images/RecognizeIdentityCard/identityCard.jpg"
+# }
+version: v1beta1
+type: flow
+steps:
+  - type: task
+    name: APIRecognizeIdentityCard
+    action: ocr:RecognizeIdentityCard
+    inputMappings:
+      - target: image
+        source: $input.imageUrl
+      - target: cardSide
+        source: face
+    outputMappings:
+      - target: name
+        source: $local.Data.FrontResult.Name
+      - target: gender
+        source: $local.Data.FrontResult.Gender
+      - target: idNumber
+        source: $local.Data.FrontResult.IDNumber
+    serviceParams:
+      ImageURL: $.image
+      Side: $.cardSide
+    retry: # 针对系统内部错误进行重试
+      - errors:
+          - ocr.ServiceUnavailable
+          - ocr.InternalError
+          - ocr.Timeout
+          - ocr.InvalidResult
+          - ocr.InvalidImage.Download
+        intervalSeconds: 10
+        maxAttempts: 2
+        multiplier: 2

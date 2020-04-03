@@ -1,0 +1,45 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+
+Resources:
+  RAMRole:
+    Type: ALIYUN::RAM::Role
+    Properties:
+      RoleName:
+        Fn::Replace:
+          - <random-suffix>:
+              Ref: ALIYUN::StackName
+          - IDCardRole-<random-suffix>
+      Description: 'RAM role for etl demo'
+      AssumeRolePolicyDocument:
+        Version: 1
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - fnf.aliyuncs.com
+      Policies:
+        - PolicyName:
+            Fn::Replace:
+              - <random-suffix>:
+                  Ref: ALIYUN::StackName
+              - IDCardRolePolicy-<random-suffix>
+          PolicyDocument:
+            Version: 1
+            Statement:
+              - Effect: Allow
+                Action:
+                  - viapi-ocr:*
+                Resource:
+                  - '*'
+
+  id_card_recognize:
+    Type: 'Aliyun::Serverless::Flow'
+    Properties:
+      Description: 'id card recognize demo'
+      Role:
+        Fn::GetAtt:
+          - 'RAMRole'
+          - "Arn"
+      DefinitionUri: flow/definition.yaml
