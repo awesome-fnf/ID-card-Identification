@@ -10,7 +10,7 @@
 #### 前置条件
 * 开通如下服务
     * 视觉智能开放平台-人脸人体服务 [链接](https://vision.aliyun.com/ocr)
-    * 函数工作流 （Function Flow, FnF） [链接](https://www.aliyun.com/product/fnf)
+    * Serverless 工作流 （Serverless Workflow） [链接](https://www.aliyun.com/product/fnf)
     * 对象存储服务（Object Storage Service，OSS） [链接](https://www.aliyun.com/product/oss)
     * 访问控制（RAM） [链接](https://buy.aliyun.com/ram)
 
