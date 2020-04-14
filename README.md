@@ -28,6 +28,6 @@
 在 Serverless 工作流控制台中进入创建的工作流，点击开始执行，并复制以下内容作为输入：
 ```
 {
-    "imageUrl": "https://viapi-demo.oss-cn-shanghai.aliyuncs.com/viapi-demo/images/RecognizeIdentityCard/identityCard.jpg"
+    "imageURL": "https://viapi-demo.oss-cn-shanghai.aliyuncs.com/viapi-demo/images/RecognizeIdentityCard/identityCard.jpg"
 }
 ```

@@ -8,11 +8,6 @@ steps:
   - type: task
     name: APIRecognizeIdentityCard
     action: ocr:RecognizeIdentityCard
-    inputMappings:
-      - target: image
-        source: $input.imageUrl
-      - target: cardSide
-        source: face
     outputMappings:
       - target: name
         source: $local.Data.FrontResult.Name
@@ -21,8 +16,8 @@ steps:
       - target: idNumber
         source: $local.Data.FrontResult.IDNumber
     serviceParams:
-      ImageURL: $.image
-      Side: $.cardSide
+      ImageURL: $.imageURL
+      Side: face
     retry: # 针对系统内部错误进行重试
       - errors:
           - ocr.ServiceUnavailable

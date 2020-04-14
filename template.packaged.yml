@@ -15,11 +15,6 @@ Resources:
             - type: task
               name: APIRecognizeIdentityCard
               action: 'ocr:RecognizeIdentityCard'
-              inputMappings:
-                - target: image
-                  source: $input.imageUrl
-                - target: cardSide
-                  source: face
               outputMappings:
                 - target: name
                   source: $local.Data.FrontResult.Name
@@ -28,8 +23,8 @@ Resources:
                 - target: idNumber
                   source: $local.Data.FrontResult.IDNumber
               serviceParams:
-                ImageURL: $.image
-                Side: $.cardSide
+                ImageURL: $.imageURL
+                Side: face
               retry:
                 - errors:
                     - ocr.ServiceUnavailable
